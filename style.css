@@ -1,20 +1,18 @@
-body{
+    /* Теги */
+    body{
         background-color:silver;
+        padding: 2em;
     }
-    #fb-btn{
-        display:block;
-    }
-    #logout,#feed,#user{
-        display:none;
-    }
-  
-    body { padding: 2em; }
 
-    
-   #center{
-       margin-left:20%;
-   }
-   
+    a{
+        font-size:70%;
+        padding-top:0%;
+        margin-top:0%;
+        line-height: 0.2em;
+    }
+
+    /* Классы */
+
    .border_{
        border:2px solid black;
    }
@@ -41,13 +39,7 @@ body{
        
     }
     
-    a{
-        font-size:70%;
-        padding-top:0%;
-        margin-top:0%;
-        line-height: 0.2em;
-    }
-    
+     
     .a_user{
         float:right;
         padding-left:20%;
@@ -55,15 +47,12 @@ body{
         margin-top:0%;
         line-height: 0.8em;
         
-    }
-   
- 
+    }  
 
-   /* Shared */
+      /* Стили кнопки выхода */
     .loginBtn {
      box-sizing: border-box;
       position: relative;
-      /* width: 13em;  - apply for fixed size */
       margin: 0.2em;
       padding: 0 15px 0 46px;
       border: none;
@@ -92,11 +81,9 @@ body{
     }
     
     
-    /* Facebook */
     .loginBtn--facebook {
       background-color: #4C69BA;
       background-image: linear-gradient(#4C69BA, #3B55A0);
-      /*font-family: "Helvetica neue", Helvetica Neue, Helvetica, Arial, sans-serif;*/
       text-shadow: 0 -1px 0 #354C8C;
     }
     .loginBtn--facebook:before {
@@ -108,3 +95,18 @@ body{
       background-color: #5B7BD5;
       background-image: linear-gradient(#5B7BD5, #4864B1);
     }
+
+    /* ID */
+    #fb-btn{
+        display:block;
+    }
+    #logout,#feed,#user{
+        display:none;
+    }
+         
+   #center{
+       margin-left:20%;
+   }
+   
+
+

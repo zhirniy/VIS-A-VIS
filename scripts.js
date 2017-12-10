@@ -1,3 +1,4 @@
+//Обработик события при загрузке подключается к приложению Фейсбук 
 window.fbAsyncInit = function() {
     FB.init({
       appId            : '374623619649840',
@@ -11,7 +12,7 @@ window.fbAsyncInit = function() {
 });
 
   };
-
+ //Подключение SDK
   (function(d, s, id){
      var js, fjs = d.getElementsByTagName(s)[0];
      if (d.getElementById(id)) {return;}
@@ -20,7 +21,7 @@ window.fbAsyncInit = function() {
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
 
-  
+  //При подтверждении пользователя отправляем запрос на получение данных и прячем кнопку входа
   function statusChangeCallback(response){
       if(response.status === 'connected'){
            setElement(true);
@@ -35,7 +36,8 @@ window.fbAsyncInit = function() {
     statusChangeCallback(response);
   });
 }
-
+//Функция получения данных при подтверждении входа пользователя
+//Отправляет запрос на получение личных данных пользователя и его постов
    function testApi(){
        FB.api('/me?fields=name,email,birthday', function(response){
            if(response && !response.error){
@@ -48,12 +50,12 @@ window.fbAsyncInit = function() {
            });
        })
    }
-   
+   //Функция обработки данных пользователя
    function buildProfile(user){
       
       document.getElementById('profile').innerHTML = user.name;
    }
-   
+   //Функция обработки постов пользователя
    function buildFeed(feed){
        let output = '<h3>Posts:</h3>';
        for(let i in feed.posts.data){
@@ -82,8 +84,7 @@ window.fbAsyncInit = function() {
             feed.posts.data[i].created_time_ = feed.posts.data[i].created_time.substring(8,10) + '.'
             + feed.posts.data[i].created_time.substring(5,7) + '.'+
             +  feed.posts.data[i].created_time.substring(2,4);
-            //feed.posts.data[i].created_time_ = feed.posts.data[i].created_time_.split("").reverse().join("");
-            output += '<div class="border_"><label>&nbspDate: '+feed.posts.data[i].created_time_+'</label></div>'
+             output += '<div class="border_"><label>&nbspDate: '+feed.posts.data[i].created_time_+'</label></div>'
             + '<div class="border_ picture" style="background-image: url('+ feed.posts.data[i].picture+'); background-size: cover"></div>'
             + '<div class="border_"><label class="name">'+ feed.posts.data[i].name+'</label></div>'
             + '<div class="border_ left_user"><label>'+ feed.posts.data[i].likes.summary.total_count+' likes</label></div>'
@@ -96,7 +97,7 @@ window.fbAsyncInit = function() {
        }
       document.getElementById('feed').innerHTML = output; 
    }
-   
+   //Функция отображения или скрытия элементов в зависимости зашёл ли пользователь в приложение или нет
    function setElement(login_in){
    if(login_in){    
      document.getElementById('logout').style.display = "block";
@@ -111,7 +112,7 @@ window.fbAsyncInit = function() {
     document.getElementById('feed').style.display = "none";
     }
    }
-   
+   //Функция выхода
    function logout(){
        FB.logout(function(response){
            setElement(false);

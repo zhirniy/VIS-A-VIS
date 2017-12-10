@@ -7,7 +7,7 @@
     <script src="scripts.js"></script>
 </head>
 <body>
-
+<!-- Кнопка входа -->
 <fb:login-button 
   size="xlarge"
   id="fb-btn"
@@ -15,12 +15,14 @@
   onlogin="checkLoginState();">
   Connect to Facebook
 </fb:login-button>
-
+<!-- Кнопка выхода -->
 <button id="logout" class="loginBtn loginBtn--facebook" onclick="logout()">Log Out</button>
 <br>
+<!-- Контейнер личных данных пользователя -->
 <div id="user">
 <h3 id="profile"></h3>
 <br>
+<!-- Контейнер постов пользователя -->
 <div id="feed"></div>
 </div>
 </body>
