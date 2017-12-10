@@ -2,134 +2,25 @@
 <html>
 <head>
 <title>Facebook Login JavaScript Example</title>
-<style>
-    #fb-btn{
-        display:block;
-    }
-    #logout,#feed,#user{
-        display:none;
-    }
-    .posts{
-        float:left;
-    }
-</style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link href="style.css" rel="stylesheet"> 
+    <script src="scripts.js"></script>
 </head>
 <body>
-<script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId            : '374623619649840',
-      autoLogAppEvents : true,
-      xfbml            : true,
-      version          : 'v2.11'
-    });
-    
-    FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
-});
-
-  };
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "https://connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-
-  
-  function statusChangeCallback(response){
-      if(response.status === 'connected'){
-           setElement(true);
-         // console.log('Good');
-         testApi();
-      }
-      else{
-          //setElement(false);
-         // console.log('No');
-      }
-  }
-   
-   function checkLoginState() {
-  FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
-  });
-}
-
-   function testApi(){
-       FB.api('/me?fields=name,email,birthday', function(response){
-           if(response && !response.error){
-              buildProfile(response);
-           }
-           FB.api('me?fields=posts.limit(5){created_time,name,picture,likes.limit(1).summary(true),shares}', function(response){
-           if(response && !response.error){
-              buildFeed(response);
-           }    
-           });
-       })
-   }
-   
-   function buildProfile(user){
-      
-      document.getElementById('profile').innerHTML = user.name;
-   }
-   
-   function buildFeed(feed){
-       let output = '<h3>Posts:</h3>';
-       for(let i in feed.posts.data){
-           if(feed.posts.data[i].id){
-            
-           if(feed.posts.data[i].shares){
-               for (key in feed.posts.data[i].shares) {
-               feed.posts.data[i].shares = feed.posts.data[i].shares[key];
-               }
-           } else{
-               feed.posts.data[i].shares = 0;
-           }
-            output += '<div class="posts"><div>'+feed.posts.data[i].created_time+'</div>'
-            + '<div><img src="'+ feed.posts.data[i].picture+'" alt="picture"></div>'
-            + '<div>'+ feed.posts.data[i].name+'</div>'
-            + '<div><label>'+ feed.posts.data[i].likes.summary.total_count+' likes</label></div>'
-            + '<div><label>'+ feed.posts.data[i].shares +' shares</label></div>'
-            + '<div><a href="https://www.facebook.com/'+ feed.posts.data[i].id+'">See post on Facebook</a></div></div>';   
-           }
-       }
-      document.getElementById('feed').innerHTML = output; 
-   }
-   
-   function setElement(login_in){
-   if(login_in){    
-     document.getElementById('logout').style.display = "block";
-    document.getElementById('user').style.display = "block";
-    document.getElementById('fb-btn').style.display = "none"; 
-    document.getElementById('feed').style.display = "block";
-   }
-    else{
-    document.getElementById('logout').style.display = "none";
-    document.getElementById('user').style.display = "none";
-    document.getElementById('fb-btn').style.display = "block";
-    document.getElementById('feed').style.display = "none";
-    }
-   }
-   
-   function logout(){
-       FB.logout(function(response){
-           setElement(false);
-       });
-   }
-   
-</script>
-
 
 <fb:login-button 
+  size="xlarge"
   id="fb-btn"
   scope="public_profile,email,user_posts"
   onlogin="checkLoginState();">
+  Connect to Facebook
 </fb:login-button>
-<button id="logout" onclick="logout()">Log Out</button>
+
+<button id="logout" class="loginBtn loginBtn--facebook" onclick="logout()">Log Out</button>
+<br>
 <div id="user">
-<div id="profile"></div>
+<h3 id="profile"></h3>
+<br>
 <div id="feed"></div>
 </div>
 </body>
